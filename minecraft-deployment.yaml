@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: minecraft-paper-server
+spec:
+  containers:
+  - name: minecraft
+    image: minecraft-paper-server
+    imagePullPolicy: Never
+    ports:
+    - containerPort: 25565
+    volumeMounts:
+    - name: server-properties
+      mountPath: /minecraft/server.properties
+      subPath: server.properties
+  volumes:
+  - name: server-properties
+    configMap:
+      name: minecraft-server-properties

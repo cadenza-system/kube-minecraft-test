@@ -1,7 +1,7 @@
 # ベースイメージの選択
 FROM openjdk:8-jre-slim
 
-# tmuxのインストール
+# mcrconのインストール
 RUN apt-get update && apt-get install -y git build-essential \
     && git clone https://github.com/Tiiffi/mcrcon.git \
     && cd mcrcon \
@@ -17,17 +17,17 @@ RUN apt-get update && apt-get install -y git build-essential \
 # 作業ディレクトリの設定
 WORKDIR /minecraft
 
-# プラグインディレクトリの作成
-RUN mkdir -p /minecraft/plugins
-
-ADD https://dev.bukkit.org/projects/worldedit/files/latest /minecraft/plugins/worldedit.jar
-
 # PaperMCサーバーファイルのダウンロード
 ADD https://papermc.io/api/v2/projects/paper/versions/1.16.5/builds/503/downloads/paper-1.16.5-503.jar /minecraft/paper.jar
 
 # EULAに同意
 RUN echo "eula=true" > eula.txt
 
+# プラグインディレクトリの作成
+RUN mkdir -p /minecraft/plugins
+
+# WEのダウンロード
+ADD https://dev.bukkit.org/projects/worldedit/files/latest /minecraft/plugins/worldedit.jar
+
 # サーバーの起動コマンド
-# CMD ["java", "-Xms512M", "-Xmx1G", "-jar", "/minecraft/paper.jar", "--nogui"]
 CMD java -Xms512M -Xmx1G -jar /minecraft/paper.jar --nogui

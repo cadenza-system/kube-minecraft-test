@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: minecraft-paper-server
+  name: paper-server
 spec:
   containers:
   - name: minecraft
-    image: minecraft-paper-server
+    image: paper-server
     imagePullPolicy: Never
     ports:
     - containerPort: 25565

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: waterfall-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: waterfall-server
+  template:
+    metadata:
+      labels:
+        app: waterfall-server
+    spec:
+      containers:
+      - name: waterfall
+        image: waterfall-server
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 25565
+        volumeMounts:
+        - name: waterfall-config
+          mountPath: /waterfall/config.yml
+          subPath: config.yml
+      volumes:
+      - name: waterfall-config
+        configMap:
+          name: waterfall-config

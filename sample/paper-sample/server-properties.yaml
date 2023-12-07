@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: minecraft-server-properties
+  name: paper-server-properties
 data:
   server.properties: |
     # Minecraft server properties

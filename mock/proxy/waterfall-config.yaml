@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: waterfall-config
+data:
+  config.yml: |
+    enforce_secure_profile: false
+    server_connect_timeout: 5000
+    listeners:
+    - bind_local_address: true
+      force_default_server: true
+      host: 0.0.0.0:25565
+      max_players: 500
+      motd: '&3KUN 50hitomainkurahuto'
+      ping_passthrough: false
+      priorities:
+      - hub
+      proxy_protocol: false
+      query_enabled: false
+      query_port: 25565
+      tab_list: GLOBAL_PING
+      tab_size: 60
+    remote_ping_cache: -1
+    network_compression_threshold: 128
+    permissions:
+      admin:
+      - bungeecord.command.alert
+      - bungeecord.command.end
+      - bungeecord.command.ip
+      - bungeecord.command.reload
+      default:
+      - bungeecord.command.server
+      - bungeecord.command.list
+    log_pings: true
+    connection_throttle_limit: 3
+    prevent_proxy_connections: false
+    timeout: 30000
+    player_limit: -1
+    ip_forward: true
+    groups:
+      md_5:
+      - admin
+    remote_ping_timeout: 5000
+    connection_throttle: 3000
+    log_commands: false
+    stats: 16ae1b9a-3941-4ee0-8e9d-61627a03f118
+    online_mode: true
+    forge_support: true
+    disabled_commands:
+    - disabledcommandhere
+    servers:
+      hub:
+        address: hub-ip-service.default.svc.cluster.local:5000
+        motd: '&3KUN 50hitomainkurahuto'
+        restricted: false
+      survival:
+        address: survival-ip-service.default.svc.cluster.local:5001
+        motd: '&3KUN 50hitomainkurahuto'
+        restricted: false

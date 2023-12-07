@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: waterfall-server
+spec:
+  containers:
+  - name: waterfall
+    image: waterfall-server
+    imagePullPolicy: Never
+    ports:
+    - containerPort: 25565
+    volumeMounts:
+    - name: waterfall-config
+      mountPath: /waterfall/config.yml
+      subPath: config.yml
+  volumes:
+  - name: waterfall-config
+    configMap:
+      name: waterfall-config

@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: survival
+  labels:
+    name: survival
+spec:
+  containers:
+  - name: minecraft
+    image: paper-server
+    imagePullPolicy: Never
+    ports:
+    - containerPort: 25565
+    volumeMounts:
+    - name: server-properties
+      mountPath: /minecraft/server.properties
+      subPath: server.properties
+    - name: survival-spigot
+      mountPath: /minecraft/spigot.yml
+      subPath: spigot.yml
+  volumes:
+  - name: server-properties
+    configMap:
+      name: survival-server-properties
+  - name: survival-spigot
+    configMap:
+      name: survival-spigot

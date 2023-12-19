@@ -1,27 +1,39 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: hub
-  labels:
-    name: hub
 spec:
-  containers:
-  - name: minecraft
-    image: paper-server
-    imagePullPolicy: Never
-    ports:
-    - containerPort: 25565
-    volumeMounts:
-    - name: server-properties
-      mountPath: /minecraft/server.properties
-      subPath: server.properties
-    - name: hub-spigot
-      mountPath: /minecraft/spigot.yml
-      subPath: spigot.yml
-  volumes:
-  - name: server-properties
-    configMap:
-      name: hub-server-properties
-  - name: hub-spigot
-    configMap:
-      name: hub-spigot
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hub
+  template:
+    metadata:
+      labels:
+        app: hub
+    spec:
+      containers:
+      - name: minecraft
+        image: paper-server
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 25565
+        volumeMounts:
+        - name: hub-pv
+          mountPath: /minecraft
+        - name: server-properties
+          mountPath: /minecraft/server.properties
+          subPath: server.properties
+        - name: hub-spigot
+          mountPath: /minecraft/spigot.yml
+          subPath: spigot.yml
+      volumes:
+      - name: hub-pv
+        persistentVolumeClaim:
+          claimName: hub-pvc
+      - name: server-properties
+        configMap:
+          name: hub-server-properties
+      - name: hub-spigot
+        configMap:
+          name: hub-spigot

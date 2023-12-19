@@ -1,21 +1,18 @@
-
 echo '[info] docker build -t paper-server .'
 docker build -t paper-server .
 
-echo 'kubectl delete pod hub'
-kubectl delete pod hub
-
-echo 'kubectl delete service hub-ip-service'
+echo '[info] Deleting old resources...'
+kubectl delete deployment hub
 kubectl delete service hub-ip-service
 
-echo '[info] kubectl apply -f server-properties.yaml'
+echo '[info] Applying ConfigMaps...'
 kubectl apply -f server-properties.yaml
-
-echo '[info] kubectl apply -f spigot.yaml'
 kubectl apply -f spigot.yaml
 
-echo '[info] kubectl apply -f paper-deployment.yaml'
-kubectl apply -f paper-deployment.yaml
+echo '[info] Creating PV and PVC...'
+kubectl apply -f paper-pv.yaml
+kubectl apply -f paper-pvc.yaml
 
-echo '[info] kubectl apply -f paper-service.yaml'
+echo '[info] Applying Deployment and Service...'
+kubectl apply -f paper-deployment.yaml
 kubectl apply -f paper-service.yaml

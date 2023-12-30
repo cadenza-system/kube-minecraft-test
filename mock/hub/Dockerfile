@@ -29,5 +29,3 @@ RUN mkdir -p /minecraft/plugins
 # WEのダウンロード
 ADD https://dev.bukkit.org/projects/worldedit/files/latest /minecraft/plugins/worldedit.jar
 
-# サーバーの起動コマンド
-CMD java -Xms512M -Xmx1G -jar /minecraft/paper.jar --nogui

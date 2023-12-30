@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: minecraft
-        image: paper-server
+        image: paper-server:latest
         imagePullPolicy: Never
         ports:
         - containerPort: 25565

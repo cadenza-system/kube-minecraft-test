@@ -1,5 +1,6 @@
 echo '[info] docker build -t paper-server .'
 docker build -t paper-server .
+minikube image load paper-server
 
 echo '[info] Deleting old resources...'
 kubectl delete deployment hub

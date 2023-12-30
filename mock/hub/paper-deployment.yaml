@@ -16,6 +16,8 @@ spec:
       - name: minecraft
         image: paper-server:latest
         imagePullPolicy: Never
+        command:
+          - java -Xms512M -Xmx1G -jar /minecraft/paper.jar --nogui 
         ports:
         - containerPort: 25565
         volumeMounts:

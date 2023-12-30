@@ -17,6 +17,7 @@ spec:
         image: paper-server:latest
         imagePullPolicy: Never
         command:
+          - cp -pR /tmp /minecraft/
           - java -Xms512M -Xmx1G -jar /minecraft/paper.jar --nogui 
         ports:
         - containerPort: 25565

@@ -12,10 +12,20 @@ spec:
       labels:
         app: hub
     spec:
+      initContainers:
+      - name: init-copy
+        image: docker.io/library/paper-server:latest
+        imagePullPolicy: Never
+        command: ['sh', '-c', 'cp -pr /tmp/* /minecraft/']
+        volumeMounts:
+        - name: hub-pv
+          mountPath: /minecraft
       containers:
       - name: minecraft
-        image: paper-server
+        image: docker.io/library/paper-server:latest
         imagePullPolicy: Never
+        command: ["java"]
+        args: ["-Xms512M", "-Xmx1G", "-jar", "/minecraft/paper.jar", "--nogui"]
         ports:
         - containerPort: 25565
         volumeMounts:

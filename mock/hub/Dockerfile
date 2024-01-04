@@ -15,19 +15,17 @@ RUN apt-get update && apt-get install -y git build-essential \
     && rm -rf /var/lib/apt/lists/*
 
 # 作業ディレクトリの設定
-WORKDIR /minecraft
+WORKDIR /tmp
 
 # PaperMCサーバーファイルのダウンロード
-ADD https://papermc.io/api/v2/projects/paper/versions/1.16.5/builds/503/downloads/paper-1.16.5-503.jar /minecraft/paper.jar
+ADD https://papermc.io/api/v2/projects/paper/versions/1.16.5/builds/503/downloads/paper-1.16.5-503.jar paper.jar
 
 # EULAに同意
 RUN echo "eula=true" > eula.txt
 
 # プラグインディレクトリの作成
-RUN mkdir -p /minecraft/plugins
+RUN mkdir -p /tmp/plugins
 
 # WEのダウンロード
-ADD https://dev.bukkit.org/projects/worldedit/files/latest /minecraft/plugins/worldedit.jar
+ADD https://dev.bukkit.org/projects/worldedit/files/latest plugins/worldedit.jar
 
-# サーバーの起動コマンド
-CMD java -Xms512M -Xmx1G -jar /minecraft/paper.jar --nogui
